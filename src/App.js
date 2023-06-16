@@ -1,18 +1,16 @@
 import { useState } from "react";
-const initialItems = [
-  { id: 1, item: "Passport", quantity: 2, packed: false },
-  { id: 2, item: "Travel Documents", quantity: 2, packed: false },
-  { id: 3, item: "T-Shirts", quantity: 9, packed: false },
-  { id: 4, item: "Camera", quantity: 1, packed: true },
-  { id: 5, item: "Charger", quantity: 3, packed: true },
-  { id: 6, item: "Umbrella", quantity: 1, packed: false },
-];
+
 function App() {
+  const [items, setItem] = useState([]);
+
+  function addItems(item) {
+    setItem((items) => [...items, item]);
+  }
   return (
-    <div>
+    <div className="body">
       <Logo />
-      <Form />
-      <List />
+      <Form onAddItems={addItems} />
+      <List item={items} />
       <Stats />
     </div>
   );
@@ -52,16 +50,23 @@ function Logo() {
     </div>
   );
 }
-function Form() {
+function Form({ onAddItems }) {
   const [desc, setDesc] = useState("");
   const [countVal, setcountVal] = useState(1);
+
   function handleSubmit(e) {
     e.preventDefault();
     console.log(e);
 
     if (!desc) return;
-    const newItem = {id:1, desc, countVal, packed:false};
+    const newItem = {
+      item: desc,
+      quantity: countVal,
+      packed: false,
+      id: Date.now(),
+    };
     console.log(newItem);
+    onAddItems(newItem);
 
     setDesc("");
     setcountVal(1);
@@ -69,30 +74,38 @@ function Form() {
   return (
     <div className="form">
       <form onSubmit={(e) => handleSubmit(e)} className="add-forn" action="">
-        <h3>What do you need for your ✨ trip?</h3>
-        <select name="" id="" value={countVal} onChange={(e) => setcountVal(Number(e.target.value))}>
-          {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-            <option value={num} key={num}>
-              {num}
-            </option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Item"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
-        <button>Add</button>
+        <h2>What do you need for your ✨ trip?</h2>
+        <div className="input-butt">
+          <select
+            name=""
+            id="selector"
+            value={countVal}
+            onChange={(e) => setcountVal(Number(e.target.value))}
+          >
+            {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+              <option value={num} key={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+          <input
+            type="text"
+            placeholder="Item"
+            value={desc}
+            id="input-text"
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          <button className="add-button">Add</button>
+        </div>
       </form>
     </div>
   );
 }
-function List() {
+function List({ item }) {
   return (
     <div className="list">
       <ul className="list-items">
-        {initialItems.map((i) => (
+        {item.map((i) => (
           <Item i={i} key={i.id} />
         ))}
       </ul>
@@ -102,11 +115,12 @@ function List() {
 
 function Item({ i }) {
   return (
-    <li>
+    <li className="list-element">
       <span style={i.packed ? { textDecoration: "line-through" } : {}}>
-        {i.quantity} {i.item}
+        {i.quantity} {"      "}
+        {i.item}
       </span>
-      <button>❌</button>
+      <button className="button-x">❌</button>
     </li>
   );
 }

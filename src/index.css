@@ -9,24 +9,27 @@ body {
   font-family: sans-serif;
   color: #333;
   width: auto;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.logo{
+.logo {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 6.5em;
-  background-color: #212A3E;
+  background-color: #212a3e;
 }
 
-.logo h1{
+.logo h1 {
   font-size: 8.1em;
   max-height: 5.5em;
   cursor: none;
 }
-.logo p{
+.logo p {
   font-size: 8em;
   color: yellow;
 }
@@ -34,26 +37,94 @@ body {
 .form {
   height: 5.8em;
   width: auto;
-  background-color: #F1F6F9;
+  background-color: #f1f6f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border: 1px black solid;
 }
 
-.list{
+.form h2 {
+  margin-top: 1px;
+  font-size: x-large;
+}
+
+.input-butt {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: auto;
+}
+
+#selector {
+  font-size: 23px;
+  text-align: center;
+  width: 50px;
+  height: 30px;
+}
+
+#selector:hover {
+  border-color: #aaa;
+}
+
+#selector:focus {
+  border-color: #3366ff;
+  box-shadow: 0 0 3px #3366ff;
+}
+
+#input-text {
+  color: black;
+  width: 220px;
+  height: 30px;
+  font-family: "Inter Tight";
+  font-size: 18px;
+  font-style: italic;
+  color: #212a3e;
+}
+
+#input-text::placeholder {
+  color: #9ba4b5;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 200;
+  text-align: left;
+  font-family: "Inter Tight";
+}
+
+.add-button {
+  height: 30px;
+  width: 80px;
+  font-size: 19px;
+  font-weight: 500;
+  background-color: #212a3e;
+  color: white;
+  border-radius: 20px;
+  border: none;
+}
+
+.add-button:hover {
+  box-shadow: 0 1px 3px black;
+}
+
+.list {
   width: auto;
   height: 22.2em;
-  background-color: #F1F6F9;
+  background-color: #f1f6f9;
 }
 
 .stats {
   width: auto;
   height: 5em;
-  background-color: #212A3E;
+  background-color: #212a3e;
   display: flex;
-  text-align:center;
+  text-align: center;
   justify-content: center;
-  color: #F1F6F9;
+  color: #f1f6f9;
 }
 
-.stats p{
+.stats p {
   margin-top: 1.1em;
   font-size: 1.4em;
 }
@@ -63,4 +134,25 @@ body {
   font-size: 3.4em;
   justify-content: center;
   margin-top: 0.19em;
+}
+
+.list-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.list-element {
+  margin-top: 15px;
+  flex: 0 0 25%;
+  font-size: 27px;
+}
+
+.button-x {
+  background-color: #f1f6f9;
+  border: none;
+}
+
+ul {
+  list-style: none;
 }
