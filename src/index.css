@@ -10,21 +10,20 @@ body {
   color: #333;
 }
 
-.hordiv {
+.logo{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  margin-left: 30%;
-  margin-right: 30%;
+  width: 100%;
+  height: 5.5em;
+  background-color: #212A3E;
 }
 
-.hor {
-  text-align: center;
-  color: purple;
+.logo h1{
+  font-size: 7em;
+  max-height: 5.5em;
 }
-
-.ans{
-  text-align: center;
-  color: blue;
-  font-weight: 600;
+.logo p{
+  font-size: 8em;
+  color: yellow;
 }
