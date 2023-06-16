@@ -6,11 +6,24 @@ function App() {
   function addItems(item) {
     setItem((items) => [...items, item]);
   }
+
+  function delItems(id) {
+    setItem((items) => items.filter((item) => item.id !== id));
+  }
+
+  function toggleItem(id) {
+    setItem((item) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+
   return (
     <div className="body">
       <Logo />
       <Form onAddItems={addItems} />
-      <List item={items} />
+      <List item={items} onDelItems={delItems} onCheck = {toggleItem} />
       <Stats />
     </div>
   );
@@ -101,26 +114,35 @@ function Form({ onAddItems }) {
     </div>
   );
 }
-function List({ item }) {
+function List({ item, onDelItems, onCheck }) {
   return (
     <div className="list">
       <ul className="list-items">
         {item.map((i) => (
-          <Item i={i} key={i.id} />
+          <Item i={i} key={i.id} onDelItems={onDelItems} onCheck={onCheck} />
         ))}
       </ul>
     </div>
   );
 }
 
-function Item({ i }) {
+function Item({ i, onDelItems, onCheck }) {
   return (
     <li className="list-element">
+      <input
+        type="checkbox"
+        name=""
+        id=""
+        value={i.packed}
+        onChange={() => onCheck(i.id)}
+      />
       <span style={i.packed ? { textDecoration: "line-through" } : {}}>
         {i.quantity} {"      "}
         {i.item}
       </span>
-      <button className="button-x">❌</button>
+      <button onClick={() => onDelItems(i.id)} className="button-x">
+        ❌
+      </button>
     </li>
   );
 }
