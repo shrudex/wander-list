@@ -23,8 +23,8 @@ function App() {
     <div className="body">
       <Logo />
       <Form onAddItems={addItems} />
-      <List item={items} onDelItems={delItems} onCheck = {toggleItem} />
-      <Stats />
+      <List item={items} onDelItems={delItems} onCheck={toggleItem} />
+      <Stats items={items} />
     </div>
   );
 }
@@ -115,13 +115,30 @@ function Form({ onAddItems }) {
   );
 }
 function List({ item, onDelItems, onCheck }) {
+  const [sortBy, setSort] = useState("input");
+
   return (
     <div className="list">
-      <ul className="list-items">
-        {item.map((i) => (
-          <Item i={i} key={i.id} onDelItems={onDelItems} onCheck={onCheck} />
-        ))}
-      </ul>
+      <div className="contents">
+        <ul className="list-items">
+          {item.map((i) => (
+            <Item i={i} key={i.id} onDelItems={onDelItems} onCheck={onCheck} />
+          ))}
+        </ul>
+      </div>
+      <div className="actions">
+        <select
+          name=""
+          id="sort"
+          value={sortBy}
+          onChange={(e) => setSort(e.target.value)}
+        >
+          <option value="input">SORT BY INPUT ORDER</option>
+          <option value="item">SORT BY ITEMS</option>
+          <option value="packed">SORT BY PACKED STATUS</option>
+        </select>
+        <button id="clear">CLEAR</button>
+      </div>
     </div>
   );
 }
@@ -147,11 +164,28 @@ function Item({ i, onDelItems, onCheck }) {
   );
 }
 
-function Stats() {
+function Stats({ items }) {
+  const numItems = items.length;
+  const numPacked = items.filter((items) => items.packed === true).length;
+  if (numItems === 0) {
+    return (
+      <div className="stats">
+        <span className="material-symbols-outlined">airplane_ticket</span>
+        <p>Start adding some items to your packing list!🚀</p>
+      </div>
+    );
+  }
   return (
     <div className="stats">
       <span className="material-symbols-outlined">airplane_ticket</span>
-      <p>You have 6 items on your list, and you already packed 0 (0%)</p>
+      {numPacked !== numItems ? (
+        <p>
+          You have {numItems} items on your list, and you already packed{" "}
+          {numPacked} ({Math.round((numPacked * 100) / numItems)}%)
+        </p>
+      ) : (
+        <p>You got everything! Ready to go✈️</p>
+      )}
     </div>
   );
 }
