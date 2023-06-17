@@ -23,7 +23,7 @@ function App() {
     <div className="body">
       <Logo />
       <Form onAddItems={addItems} />
-      <List item={items} onDelItems={delItems} onCheck={toggleItem} />
+      <List item={items} onDelItems={delItems} onCheck={toggleItem} setItem={setItem}/>
       <Stats items={items} />
     </div>
   );
@@ -114,7 +114,7 @@ function Form({ onAddItems }) {
     </div>
   );
 }
-function List({ item, onDelItems, onCheck }) {
+function List({ item, onDelItems, onCheck, setItem }) {
   const [sortBy, setSort] = useState("input");
   let sortedItem;
   console.log(item);
@@ -145,7 +145,7 @@ function List({ item, onDelItems, onCheck }) {
           <option value="item">SORT BY ITEMS</option>
           <option value="packed">SORT BY PACKED STATUS</option>
         </select>
-        <button id="clear">CLEAR</button>
+        <button onClick={()=>setItem([])} id="clear">CLEAR</button>
       </div>
     </div>
   );
